@@ -6,6 +6,7 @@
 #define MAX_FORCE 10 // units in Newtons
 #define PALPATION_INTERVAL 0.01 // units in meters
 #define TOTAL_PALPATION_DISTANCE 0.1 // units in meters
+#define PALPATE_SERVO_DISTANCE 0.001 // units in meters
 
 #include <ros/ros.h>
 #include <sensor_msgs/JointState.h>
@@ -138,7 +139,7 @@ void optoCallback(const geometry_msgs::WrenchStamped::ConstPtr& msg) {
 geometry_msgs::TransformStamped palpateTissue(geometry_msgs::TransformStamped currentTransform) {
   geometry_msgs::TransformStamped next_transform;
   Eigen::Matrix3Xd translation_vector(3,1);
-  translation_vector << 0, 0, -0.001;
+  translation_vector << 0, 0, -PALPATE_SERVO_DISTANCE;
 
   next_transform = calcNextTransform(currentTransform, translation_vector);
 
